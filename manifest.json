@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+
+  "name": "Laracasts Downloader",
+  "description": "Download all videos from a laracasts.com series at once (paid laracasts.com membership required)",
+  "version": "0.1",
+
+  "browser_action": {
+    "default_title": "Laracasts Downloader",
+    "// default_icon": "icon.png"
+  },
+  "background": {
+    "page": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://laracasts.com/*"
+      ],
+      "js": ["content-script.js"]
+    }
+  ],
+  "permissions": [
+    "downloads",
+    "activeTab",
+    "webRequest",
+    "*://*/"
+  ]
+}
