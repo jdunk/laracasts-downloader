@@ -34,10 +34,9 @@ document.addEventListener('DOMContentLoaded', function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
 
   checkbox.addEventListener('change', function () {
-    if (checkbox.checked) {
-    }
-    else {
-    }
+    chrome.storage.sync.set({
+      stopEverything: checkbox.checked
+    });
   });
 });
 

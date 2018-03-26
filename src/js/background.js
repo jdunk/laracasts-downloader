@@ -18,21 +18,24 @@ chrome.storage.sync.get(null, (data) => {
 chrome.storage.onChanged.addListener((changes, areaName) => {
   if (areaName !== 'sync') { return; }
 
-  u.debugLog('storage.sync changed:');
   _forOwn(changes, (values, key) => { settings[key] = values.newValue; } );
 
+  u.debugLog('storage.sync changed:');
+  u.debugLog({settings});
 });
 
 chrome.downloads.onCreated.addListener((downloadItem) => {
-console.log('download created!');
-//  let theFile = downloadQ.findByDownloadId(downloadItem.id);
-//  theFile.downloadState = downloadItem.state;
-  console.log({downloadItem});
+  u.debugLog('download created');
+  u.debugLog({downloadItem});
 });
 
 chrome.downloads.onChanged.addListener((downloadItem) => {
-console.log('download changed!');
+  u.debugLog('Download changed');
+  u.debugLog({downloadItem});
+
   let theFile = downloadQ.findByDownloadId(downloadItem.id);
+  if (!theFile) { return; }
+
   if (downloadItem.state) {
     theFile.downloadState = downloadItem.state.current;
     
@@ -40,7 +43,6 @@ console.log('download changed!');
       downloadQ.downloadAllTheThings();
     }
   }
-  console.log({downloadItem});
 });
 
 chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggestFn) => {
@@ -48,6 +50,8 @@ chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggestFn) => 
   console.log({settings});
   let path = settings.defaultDownloadDir || '';
   let theFile = downloadQ.findByDownloadId(downloadItem.id);
+
+  if (!theFile) { return; }
 
   u.debugLog({path, theFile});
 
@@ -123,7 +127,7 @@ let downloadQ = {
   },
 
   downloadAllTheThings: function() {
-    if (this.getNumCurrentlyDownloading() >= settings.maxConcurrentDownloads) {
+    if (settings.stopEverything || this.getNumCurrentlyDownloading() >= settings.maxConcurrentDownloads) {
       return;
     }
 
