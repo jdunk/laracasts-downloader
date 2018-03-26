@@ -28,6 +28,17 @@ function restore_options() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', restore_options);
+document.addEventListener('DOMContentLoaded', function () {
+  restore_options();
+
+  var checkbox = document.querySelector('input[type="checkbox"]');
+
+  checkbox.addEventListener('change', function () {
+    if (checkbox.checked) {
+    }
+    else {
+    }
+  });
+});
 
 document.getElementById('save').addEventListener('click', save_options);
