@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><title>Laracasts Downloader Options</title></head>
+<body>
+
+<h2>Laracasts Downloader settings</h2>
+
+<label>
+  <strong>Default download folder path (<em>relative</em>):</strong><br>
+  <input id="defaultDownloadDir" type="text"/> (Must be <u>relative</u> to your <strong>Downloads</strong> folder, per Chrome policy. Tip: Create a symlink if desired)
+</label>
+
+<br>
+<br>
+<strong>Maximum concurrent downloads:</strong>
+<select id="maxConcurrentDownloads">
+ <option value="1">1</option>
+ <option value="2">2</option>
+ <option value="3">3</option>
+ <option value="4">4</option>
+ <option value="5">5</option>
+ <option value="6">6</option>
+ <option value="7">7</option>
+ <option value="8">8</option>
+ <option value="9">9</option>
+</select>
+
+<br/>
+<br/>
+<div id="status"></div>
+<button id="save">Save</button>
+
+<script src="options.bundle.js"></script>
+</body>
+</html>

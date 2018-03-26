@@ -1,4 +1,4 @@
-export let debugLogLevel = 3;
+export let debugLogLevel = 4;
 
 export function debugLog(logMe, logLevel)
 {
@@ -21,4 +21,21 @@ export function ready(fn) {
   } else {
     document.addEventListener('DOMContentLoaded', fn);
   }
+}
+
+export function doXhr(method, url, onSuccess, onError) {
+  var xhr = new XMLHttpRequest();
+
+  xhr.onload = function() {
+    onSuccess(xhr.responseText);
+  };
+
+  if (typeof onError !== 'undefined') {
+    xhr.onerror = function() {
+      onError(xhr);
+    }
+  }
+
+  xhr.open(method, url, true);
+  xhr.send();
 }
