@@ -2,6 +2,7 @@ export let debugLogLevel = 4;
 
 export function debugLog(logMe, logLevel)
 {
+  return;
   if (debugLogLevel < logLevel) { return; }
 
   if (typeof logMe === 'string')

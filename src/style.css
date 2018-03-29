@@ -101,6 +101,10 @@ input {
     width: 200px;
 }
 
+input::placeholder {
+    color: #d6d6d6;
+}
+
 select {
     font-size: 22px;
     width: 100px;
