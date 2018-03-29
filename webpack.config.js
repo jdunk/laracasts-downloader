@@ -20,13 +20,12 @@ if (fileSystem.existsSync(secretsPath)) {
 
 var options = {
   entry: {
-    "content-script": path.join(__dirname, "src", "js", "content-script.js"),
     options: path.join(__dirname, "src", "js", "options.js"),
     background: path.join(__dirname, "src", "js", "background.js"),
     "browser-action-clicked": path.join(__dirname, "src", "js", "browser-action-clicked.js")
   },
   chromeExtensionBoilerplate: {
-    notHotReload: ["content-script","browser-action-clicked"]
+    notHotReload: ["browser-action-clicked"]
   },
   output: {
     path: path.join(__dirname, "dist"),
@@ -59,13 +58,22 @@ var options = {
     new CopyWebpackPlugin([{
       from: "src/manifest.json",
       transform: function (content, path) {
-        // generates the manifest file using the package.json informations
+        // generates the manifest file using the package.json information
         return Buffer.from(JSON.stringify({
           description: process.env.npm_package_description,
           version: process.env.npm_package_version,
           ...JSON.parse(content.toString())
         }))
       }
+    },
+    {
+      from: "src/img",
+    },
+    {
+      from: "src/style.css",
+    },
+    {
+      from: "src/how-to.html",
     }]),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "options.html"),

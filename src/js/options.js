@@ -9,7 +9,7 @@ function save_options() {
   }, function() {
     // Update status to let user know options were saved.
     var status = document.getElementById('status');
-    status.textContent = 'Options saved.';
+    status.textContent = 'Settings saved.';
     setTimeout(function() {
       status.textContent = '';
     }, 750);
@@ -20,11 +20,13 @@ function save_options() {
 // stored in chrome.storage.
 function restore_options() {
   chrome.storage.sync.get([
+    'stopEverything',
     'defaultDownloadDir',
     'maxConcurrentDownloads',
   ], function(items) {
-    document.getElementById('defaultDownloadDir').value = items.defaultDownloadDir;
-    document.getElementById('maxConcurrentDownloads').value = items.maxConcurrentDownloads;
+    document.getElementById('stopEverything').checked = items.stopEverything || false;
+    document.getElementById('defaultDownloadDir').value = items.defaultDownloadDir || "";
+    document.getElementById('maxConcurrentDownloads').value = items.maxConcurrentDownloads || 4;
   });
 }
 

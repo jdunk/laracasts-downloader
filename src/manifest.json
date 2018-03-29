@@ -7,26 +7,24 @@
 
   "browser_action": {
     "default_title": "Laracasts Downloader",
-    "// default_icon": "icon.png"
+    "default_icon": "icon-128.png"
+  },
+  "icons": {
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
   },
   "background": {
     "scripts": ["background.bundle.js"]
   },
   "options_page": "options.html",
-  "content_scripts": [
-    {
-      "matches": [
-        "*://laracasts.com/*"
-      ],
-      "js": ["content-script.bundle.js"]
-    }
-  ],
+  "incognito": "split",
   "permissions": [
     "downloads",
     "storage",
     "activeTab",
     "webRequest",
-    "*://*/"
+    "*://*.laracasts.com/*"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
